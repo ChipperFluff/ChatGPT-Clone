@@ -1,0 +1,148 @@
+$transparent: rgba(0, 0, 0, 0);
+
+// Button Colors
+$button-primary: #E95420;
+$button-primary-hover: #C34113;
+$button-secondary: #77216F;
+$button-secondary-hover: #5E2750;
+
+// Link Colors
+$link-default: #77216F;
+$link-hover: #5E2750;
+
+// Text Colors
+$text-main: #111111;
+$text-on-primary: #FFFFFF;
+
+// Background Colors
+$bg-page-light: #F8F8F8;
+$bg-page-dark: #2C001E;
+
+// Border Colors
+$border-light: #E5E5E5;
+$border-dark: #333333;
+
+// Primary Palette
+$primary-default: #E95420;
+$primary-light: #EB6536;
+$primary-dark: #C34113;
+
+// Support Colors
+$support-primary: #77216F;
+$support-mid: #5E2750;
+$support-dark: #2C001E;
+
+// Neutral Palette
+$neutral-warm: #AEA79F;
+$neutral-cool: #333333;
+
+// Gradient Shades for Interface Elements
+$gradient-orange-start: #E95420;
+$gradient-orange-end: #FDEEE9;
+
+$gradient-aubergine-start: #772953;
+$gradient-aubergine-end: #F1E9ED;
+
+$gradient-light-aubergine-start: #77216F;
+$gradient-light-aubergine-end: #F1E8F0;
+
+$gradient-mid-aubergine-start: #5E2750;
+$gradient-mid-aubergine-end: #EEE9ED;
+
+$gradient-dark-aubergine-start: #2C001E;
+$gradient-dark-aubergine-end: #E9E5E8;
+
+// Warm Grey Palette for Subtle Backgrounds
+$warm-grey-base: #AEA79F;
+$warm-grey-lightest: #FAF3F0;
+
+// Additional shades
+$orange-100: #E95420;
+$orange-90: #EB6536;
+$orange-80: #ED764D;
+$orange-70: #F08763;
+$orange-60: #F29879;
+$orange-50: #F4AA90;
+$orange-45: #F5B29B;
+$orange-40: #F6BBA6;
+$orange-35: #F7C3B1;
+$orange-30: #F8CCBC;
+$orange-25: #FAD4C7;
+$orange-20: #FBDDD2;
+$orange-15: #FCE5DE;
+$orange-10: #FDEEE9;
+
+$canonical-aubergine-100: #772953;
+$canonical-aubergine-90: #843E64;
+$canonical-aubergine-80: #925375;
+$canonical-aubergine-70: #9F6986;
+$canonical-aubergine-60: #AD7E97;
+$canonical-aubergine-50: #BB94A9;
+$canonical-aubergine-45: #C19EB1;
+$canonical-aubergine-40: #C8A9BA;
+$canonical-aubergine-35: #CFB4C2;
+$canonical-aubergine-30: #D6BECB;
+$canonical-aubergine-25: #DDC9D4;
+$canonical-aubergine-20: #E3D4DC;
+$canonical-aubergine-15: #EADEE5;
+$canonical-aubergine-10: #F1E9ED;
+
+$light-aubergine-100: #77216F;
+$light-aubergine-90: #84377D;
+$light-aubergine-80: #924D8B;
+$light-aubergine-70: #9F639A;
+$light-aubergine-60: #AD79A8;
+$light-aubergine-50: #BB90B7;
+$light-aubergine-45: #C19BBE;
+$light-aubergine-40: #C8A6C5;
+$light-aubergine-35: #CFB1CC;
+$light-aubergine-30: #D6BCD3;
+$light-aubergine-25: #DDC7DB;
+$light-aubergine-20: #E3D2E2;
+$light-aubergine-15: #EADDE9;
+$light-aubergine-10: #F1E8F0;
+
+$mid-aubergine-100: #5E2750;
+$mid-aubergine-90: #6E3C61;
+$mid-aubergine-80: #7E5273;
+$mid-aubergine-70: #8E6784;
+$mid-aubergine-60: #9E7D96;
+$mid-aubergine-50: #AE93A7;
+$mid-aubergine-45: #B69DB0;
+$mid-aubergine-40: #BEA8B9;
+$mid-aubergine-35: #C6B3C1;
+$mid-aubergine-30: #CEBECA;
+$mid-aubergine-25: #D6C9D3;
+$mid-aubergine-20: #DED3DC;
+$mid-aubergine-15: #E6DEE4;
+$mid-aubergine-10: #EEE9ED;
+
+$dark-aubergine-100: #2C001E;
+$dark-aubergine-90: #411934;
+$dark-aubergine-80: #56334B;
+$dark-aubergine-70: #6B4C61;
+$dark-aubergine-60: #806678;
+$dark-aubergine-50: #957F8E;
+$dark-aubergine-45: #A08C99;
+$dark-aubergine-40: #AA99A5;
+$dark-aubergine-35: #B5A5B0;
+$dark-aubergine-30: #BFB2BB;
+$dark-aubergine-25: #CABFC6;
+$dark-aubergine-20: #D4CCD2;
+$dark-aubergine-15: #DFD8DD;
+$dark-aubergine-10: #E9E5E8;
+
+$warm-grey-100: #AEA79F;
+$warm-grey-90: #B6AFA8;
+$warm-grey-80: #BFB8B1;
+$warm-grey-70: #C8C1BA;
+$warm-grey-60: #D1CAC3;
+$warm-grey-50: #DAD3CC;
+$warm-grey-45: #DED7D0;
+$warm-grey-40: #E2DBD4;
+$warm-grey-35: #E6DFD8;
+$warm-grey-30: #EAE3DC;
+$warm-grey-25: #EEE7E0;
+$warm-grey-20: #F2EBE4;
+$warm-grey-15: #F6EFEB;
+$warm-grey-10: #FAF3F0;
