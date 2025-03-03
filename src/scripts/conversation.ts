@@ -1,40 +1,61 @@
 import { requestAnswer } from "./ai";
 
-const conversationHistory: HTMLElement | null = document.querySelector(".conversation-history")
-const queryInput = document.querySelector<HTMLInputElement>(".content-query-input")
+const conversationHistory = document.querySelector<HTMLDListElement>(".conversation-history");
+const queryInput = document.querySelector<HTMLInputElement>(".content-query-input");
 
-function createHistoryItem(side:'theirs'|'ours', content:string): HTMLElement {
-    const item: HTMLElement = document.createElement('div');
-    item.className = side;
+export default {
+    init() {
+        if (!conversationHistory || !queryInput) {
+            console.warn(`Conversation initialization error: conversationHistory=${!!conversationHistory}, queryInput=${!!queryInput}`);
+            return false;
+        }
+        return true;
+    },
 
-    const item_content: HTMLElement = document.createElement('div');
-    item_content.className = 'conversation-history-item';
-    item_content.innerText = content;
+    createHistoryItem(side: 'theirs' | 'ours', content: string): HTMLElement {
+        const item = document.createElement('div');
+        item.className = side;
 
-    item?.append(item_content);
-    return item;
-}
+        const itemContent = document.createElement('div');
+        itemContent.className = 'conversation-history-item';
+        itemContent.innerText = content;
 
+        item.append(itemContent);
+        return item;
+    },
 
-function addHistoryItem(side:'theirs'|'ours', content:string) {
-    const item: HTMLElement = createHistoryItem(side, content);
-    conversationHistory?.append(item)
-}
+    addHistoryItem(side: 'theirs' | 'ours', content: string) {
+        const item = this.createHistoryItem(side, content);
+        conversationHistory?.append(item);
+        item.scrollIntoView({ behavior: 'smooth' });
+    },
 
-export async function queryEvent() {
-    const content = queryInput?.value || '404'
+    async queryEvent() {
+        const content = queryInput?.value.trim();
+        if (!content) {
+            console.warn('no text from queryEvent')
+            return;
+        }
 
-    addHistoryItem('ours', content)
-    queryInput.disabled = true;
+        this.addHistoryItem('ours', content);
+        queryInput!.disabled = true;
 
-    const response = await requestAnswer(content)
+        try {
+            const response = await requestAnswer(content);
+            this.addHistoryItem('theirs', response.content);
+        } catch (error) {
+            console.error('Failed to get a response from the AI:', error);
+            this.addHistoryItem('theirs', 'Error communicating with AI.');
+        }
 
-    queryInput.value = ''
-    queryInput.disabled = false;
-    addHistoryItem('theirs', response.content)
-}
+        queryInput!.value = '';
+        queryInput!.disabled = false;
+        queryInput!.focus();
+    },
 
-export function clearHistory() {
-    if (!conversationHistory) return;
-    conversationHistory.innerHTML = ''
+    clearHistory() {
+        if (conversationHistory) {
+            conversationHistory.innerHTML = '';
+        }
+    }
 }

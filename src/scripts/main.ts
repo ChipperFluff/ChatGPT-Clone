@@ -1,10 +1,26 @@
-import { queryEvent } from "./conversation";
+import conversation from "./conversation";
 
-const submitButton = document.querySelector(".content-query-control-submit-btn")
+function main() {
+    const submitButton = document.querySelector(".content-query-control-submit-btn");
 
-submitButton?.addEventListener('click', queryEvent)
-document.addEventListener('keydown', (event) => {
-    if(event.ctrlKey && event.key == "Enter") {
-        queryEvent()
+    if (!conversation.init()) {
+        console.error('Failed to initialize the conversation module');
+        return;
     }
+
+    if (!submitButton) {
+        console.error('Submit button not found');
+        return;
+    }
+
+    submitButton.addEventListener('click', conversation.queryEvent.bind(conversation));
+    document.addEventListener('keydown', (event) => {
+        if (event.ctrlKey && event.key === "Enter") {
+            conversation.queryEvent.bind(conversation)();
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    main();
 });
