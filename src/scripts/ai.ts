@@ -1,4 +1,4 @@
-import { ChatGPTResponse } from "./types/ai";
+import { ChatGPTResponse } from "./types";
 
 export async function requestAnswer(query: string): Promise<ChatGPTResponse> {
     console.log('ask chtgpt here', query)

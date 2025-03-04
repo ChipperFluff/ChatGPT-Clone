@@ -1,61 +1,57 @@
-import { requestAnswer } from "./ai";
+import { AppendHistoryEvent, AppendHistoryEventName } from "./events";
+import { AppendHistoryEventData } from "./types";
 
-const conversationHistory = document.querySelector<HTMLDListElement>(".conversation-history");
-const queryInput = document.querySelector<HTMLInputElement>(".content-query-input");
+const conversationHistory = document.querySelectorAll<HTMLDivElement>(".conversation-history");
+const queryInput = document.querySelectorAll<HTMLInputElement>(".content-query-input");
 
 export default {
     init() {
-        if (!conversationHistory || !queryInput) {
-            console.warn(`Conversation initialization error: conversationHistory=${!!conversationHistory}, queryInput=${!!queryInput}`);
-            return false;
-        }
-        return true;
+        conversationHistory?.forEach((history: HTMLDivElement) => {
+            document?.addEventListener(AppendHistoryEventName as string, (event: Event) => {
+                if (!(event instanceof CustomEvent && event.detail)) { return }
+
+                const details = event.detail as AppendHistoryEventData;
+                const item = this.createHistoryItem(details.side, details.content);
+                history.append(item);
+            });
+        })
+
+        queryInput?.forEach((input: HTMLInputElement) => {
+            const submitButton = document.querySelector<HTMLButtonElement>('.content-query .content-query-control-right .content-query-control-submit-btn');
+            const side = 'ours'
+            const status = 'ok'
+
+            submitButton?.addEventListener('click', () => {
+                this.addHistoryItem(side, input.value, status)                
+            });
+
+            input.addEventListener('keydown', (event) => {
+                if(!(event.ctrlKey && event.key == "Enter")) return
+                this.addHistoryItem(side, input.value, status)                
+            });
+
+        });
     },
 
-    createHistoryItem(side: 'theirs' | 'ours', content: string): HTMLElement {
+    addHistoryItem(side: 'theirs' | 'ours', content: string, status: 'ok' | 'error' = 'ok') {
+        const appendHistoryEvent = new AppendHistoryEvent({
+            side: side,
+            content: content,
+            status: status  
+        });
+        document.dispatchEvent(appendHistoryEvent);
+    },
+
+    createHistoryItem(side: 'theirs' | 'ours', content: string, status: 'ok' | 'error' = 'ok'): HTMLDivElement {
         const item = document.createElement('div');
         item.className = side;
 
         const itemContent = document.createElement('div');
-        itemContent.className = 'conversation-history-item';
+        itemContent.classList.add('conversation-history-item');
+        itemContent.classList.add(status);
         itemContent.innerText = content;
 
         item.append(itemContent);
         return item;
-    },
-
-    addHistoryItem(side: 'theirs' | 'ours', content: string) {
-        const item = this.createHistoryItem(side, content);
-        conversationHistory?.append(item);
-        item.scrollIntoView({ behavior: 'smooth' });
-    },
-
-    async queryEvent() {
-        const content = queryInput?.value.trim();
-        if (!content) {
-            console.warn('no text from queryEvent')
-            return;
-        }
-
-        this.addHistoryItem('ours', content);
-        queryInput!.disabled = true;
-
-        try {
-            const response = await requestAnswer(content);
-            this.addHistoryItem('theirs', response.content);
-        } catch (error) {
-            console.error('Failed to get a response from the AI:', error);
-            this.addHistoryItem('theirs', 'Error communicating with AI.');
-        }
-
-        queryInput!.value = '';
-        queryInput!.disabled = false;
-        queryInput!.focus();
-    },
-
-    clearHistory() {
-        if (conversationHistory) {
-            conversationHistory.innerHTML = '';
-        }
     }
 }
