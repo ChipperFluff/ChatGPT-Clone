@@ -1,5 +1,7 @@
-import conversation from "./conversation";
+import history from "./components/history";
+import query from "./components/query";
 
 document.addEventListener('DOMContentLoaded', () => {
-    conversation.init()
+    history.init()
+    query.init()
 });
