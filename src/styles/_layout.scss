@@ -1,22 +1,22 @@
-@use './utilities/variables';
+@use "./utilities/variables";
 
 .navigation {
-    position: static;
-    left: 0;
-    right: 5px;
-    top: 0;
-    height: 50px;
+  position: static;
+  left: 0;
+  right: 5px;
+  top: 0;
+  height: 50px;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-    padding-inline: 1rem;
+  padding-inline: 1rem;
 
-    background: inherit;
+  background: inherit;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }

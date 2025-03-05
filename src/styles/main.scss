@@ -1,15 +1,15 @@
-@use './utilities/variables';
-@use './layout';
-@use './content';
+@use "./utilities/variables";
+@use "./layout";
+@use "./content";
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 
-    background: variables.$border-dark;
-    color:variables.$primary-light
+  background: variables.$border-dark;
+  color: variables.$primary-light;
 }
 
 body {
-    height: 100vh;
+  height: 100vh;
 }
