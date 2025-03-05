@@ -10,9 +10,9 @@ export default {
       ".conversation-history",
     );
 
-    conversationHistory.forEach((history: HTMLDivElement) => {
+    conversationHistory.forEach((history) => {
       document?.addEventListener(
-        AppendHistoryEventName as string,
+        AppendHistoryEventName,
         (event: Event) => {
           if (!(event instanceof CustomEvent && event.detail)) {
             return;

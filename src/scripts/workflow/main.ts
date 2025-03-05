@@ -1,33 +1,51 @@
-import { WorkFlowEventData, StartQueryEventName } from "../events/event-typing";
-import { StartQueryEventData } from "../types/events";
+import {
+  WorkFlowEventData,
+  StartQueryEventName,
+  KiContentEventName,
+  KiAnswerEventName,
+} from "../events/event-typing";
+import {
+  StartQueryEventData,
+  KiContentEventData,
+  KiAnswerEventData,
+} from "../types/events";
+import { listenToWorkFlow, dispatchWorkFlowEvent } from "../modules/workflow";
 
 export default {
   init() {
-    this.listenToWorkFlow<StartQueryEventData>(
+    listenToWorkFlow<StartQueryEventData>(
       StartQueryEventName,
       this.onStartQuery,
+    );
+
+    listenToWorkFlow<KiAnswerEventData>(
+      KiAnswerEventName,
+      this.onKiAnswer,
     );
   },
 
   onStartQuery(eventData: WorkFlowEventData<StartQueryEventData>) {
     const data = eventData.data;
     const input = data?.inputQuery;
-    const value = input?.value;
-    console.log(value);
+    const button = data?.submitBtn;
 
-    if (input) {
+    const value = input?.value;
+
+    if (input && button) {
       input.value = "";
+      input.disabled = true;
+      button.disabled = true;
+
+      dispatchWorkFlowEvent<KiContentEventData>(
+        KiContentEventName,
+        {
+          content: value || "",
+        },
+      );
     }
   },
 
-  listenToWorkFlow<T>(eventName: string, callback: (eventData: WorkFlowEventData<T>) => void) {
-    document?.addEventListener(eventName, (event: Event) => {
-      if (!(event instanceof CustomEvent && event.detail)) {
-        return;
-      }
-
-      const details = event.detail as WorkFlowEventData<T>;
-      callback(details);
-    });
-  },
+  onKiAnswer(eventData: WorkFlowEventData<KiAnswerEventData>) {
+    console.log('ki said:', eventData.data?.content);
+  }
 }

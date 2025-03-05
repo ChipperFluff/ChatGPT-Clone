@@ -3,8 +3,10 @@ import {
   AppendHistoryEventName,
   WorkFlowEventData,
   StartQueryEventName,
+  KiContentEventName,
+  KiAnswerEventName,
 } from "./event-typing";
-import { StartQueryEventData } from "../types/events";
+import { StartQueryEventData, KiContentEventData, KiAnswerEventData } from "../types/events";
 
 export class AppendHistoryEvent extends CustomEvent<AppendHistoryEventData> {
   constructor(data: AppendHistoryEventData) {
@@ -17,5 +19,17 @@ export class StartQueryEvent extends CustomEvent<
 > {
   constructor(data: WorkFlowEventData<StartQueryEventData>) {
     super(StartQueryEventName, { detail: data });
+  }
+}
+
+export class KiContentEvent extends CustomEvent<KiContentEventData> {
+  constructor(data: KiContentEventData) {
+    super(KiContentEventName, { detail: data });
+  }
+}
+
+export class KiAnswerEvent extends CustomEvent<KiAnswerEventData> {
+  constructor(data: KiAnswerEventData) {
+    super(KiAnswerEventName, { detail: data });
   }
 }

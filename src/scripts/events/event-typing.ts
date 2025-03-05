@@ -9,6 +9,9 @@ export interface WorkFlowEventData<T = null> {
   data?: T;
 }
 
+export const KiContentEventName = "requestKiContent";
+export const KiAnswerEventName = "requestKiAnswer";
+
 export const AppendHistoryEventName = "appendHistory";
 export interface AppendHistoryEventData {
   side: "theirs" | "ours";

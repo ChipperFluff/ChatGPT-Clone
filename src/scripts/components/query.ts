@@ -36,7 +36,7 @@ export default {
         this.dispatchStartQueryEvent(queryId, button, queryInput);
       });
 
-      button.addEventListener("keydown", (event) => {
+      queryInput.addEventListener("keydown", (event) => {
         if (!(event.ctrlKey && event.key == "Enter")) return;
         this.dispatchStartQueryEvent(queryId, button, queryInput);
       });
