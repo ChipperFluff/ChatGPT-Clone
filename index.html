@@ -7,17 +7,11 @@
   </head>
   <body>
     <nav class="navigation">
-      <div class="navigation-item">
-        SELECT
-      </div>
-      <div class="navigation-item">
-        PROF
-      </div>
+      <div class="navigation-item">SELECT</div>
+      <div class="navigation-item">PROF</div>
     </nav>
 
-    <section class="sidebar">
-
-    </section>
+    <section class="sidebar"></section>
 
     <section class="content conversation-start">
       <div class="content-title hidden">
@@ -34,19 +28,27 @@
           name="query-input"
           class="content-query-input"
           rows="3"
-          query-id="1"
+          query-input-id="1"
           placeholder="Stelle irgeneine Frage"
         ></textarea>
         <div class="content-query-control">
           <div class="content-query-control-left">
             <button class="content-query-control-upload-btn">+</button>
-            <button class="content-query-control-search-btn" disabled>Suche</button>
-            <button class="content-query-control-deep-search-btn">Deep Research</button>
+            <button class="content-query-control-search-btn" disabled>
+              Suche
+            </button>
+            <button class="content-query-control-deep-search-btn">
+              Deep Research
+            </button>
             <button class="content-query-control-show-tools-btn">...</button>
           </div>
           <div class="content-query-control-right">
-            <button class="content-query-control-audio-chat-btn hidden">|||</button>
-            <button query-id="1" class="content-query-control-submit-btn">/\</button>
+            <button class="content-query-control-audio-chat-btn hidden">
+              |||
+            </button>
+            <button query-ref-id="1" class="content-query-control-submit-btn">
+              /\
+            </button>
           </div>
         </div>
       </div>
@@ -54,7 +56,8 @@
 
     <footer class="footer">
       <p class="footer-disclaimer">
-        ChatGPT kann Fehler machen. OpenAI verwendet keine Daten aus dem Arbeitsbereich Marv.GMbH zum Trainieren seiner Modelle.
+        ChatGPT kann Fehler machen. OpenAI verwendet keine Daten aus dem
+        Arbeitsbereich Marv.GMbH zum Trainieren seiner Modelle.
       </p>
     </footer>
 
