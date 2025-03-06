@@ -26,6 +26,15 @@ export default {
         if (!(event.ctrlKey && event.key == "Enter")) return;
         this.sendOutQuery(queryInput, submitBtn, queryInput);
       });
+
+      queryInput.addEventListener('input', () => {
+        if (!queryInput.value.length) {
+          submitBtn.classList.add('hidden')
+          return
+        }
+
+        submitBtn.classList.remove('hidden')
+      })
     });
   },
 
@@ -35,9 +44,14 @@ export default {
     queryInput: HTMLTextAreaElement,
   ) {
     const query = textarea.value;
+    if (!query.length) { 
+      return
+    }
+
     textarea.value = "";
     submitBtn.disabled = true;
     queryInput.disabled = true;
+    submitBtn.classList.add('hidden')
 
     document.dispatchEvent(
       new CustomEvent<HistoryEvent>(history.APPEND_HISTORY_EVENT, {
