@@ -1,5 +1,4 @@
-export type HistoryItem = {
-  side: "theirs" | "ours";
-  content: string;
-  status: "ok" | "error";
-};
+export interface HistoryEvent {
+  message: string;
+  alignment: "left" | "right";
+}

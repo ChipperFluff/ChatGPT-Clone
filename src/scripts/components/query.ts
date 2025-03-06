@@ -1,62 +1,43 @@
-import { StartQueryEvent } from "../events/definitions";
-import { EventReason } from "../types/events";
+import { HistoryEvent } from "../types/history";
+import history from "./history";
 
 export default {
   init() {
-    const submitButton = document.querySelectorAll<HTMLButtonElement>(
-      'button[query-ref-id]:not([query-ref-id=""])',
-    );
+    const components =
+      document.querySelectorAll<HTMLFormElement>(".content-query");
 
-    if (!submitButton.length) {
-      console.error("No submit buttons found");
-      return;
-    }
-
-    submitButton.forEach((button: HTMLButtonElement) => {
-      const queryId = button.getAttribute("query-ref-id");
-      const queryInputs = document.querySelectorAll<HTMLInputElement>(
-        `[query-input-id="${queryId}"]`,
+    components.forEach((component) => {
+      const submitBtn = component.querySelector<HTMLInputElement>(
+        ".content-query-control-submit-btn",
       );
+      const queryInput =
+        component.querySelector<HTMLTextAreaElement>("textarea");
 
-      if (queryId === null) {
-        console.error(`Submit Button: ${button}\nmisses its "query-ref-id" id`);
+      if (submitBtn === null || queryInput === null) {
         return;
       }
-      if (queryInputs.length !== 1) {
-        console.error(
-          `Query Input: ${queryId} has none or more than one queryInputs`,
+
+      component?.addEventListener("submit", (event) => {
+        event.preventDefault();
+        document.dispatchEvent(
+          new CustomEvent<HistoryEvent>(history.APPEND_HISTORY_EVENT, {
+              detail: {
+                message: queryInput.value,
+                alignment: "left"
+              }
+          }),
         );
-        console.error(queryInputs);
-        return;
-      }
-
-      const queryInput = queryInputs.item(0);
-
-      button.addEventListener("click", () => {
-        this.dispatchStartQueryEvent(queryId, button, queryInput);
       });
 
-      queryInput.addEventListener("keydown", (event) => {
+      queryInput?.addEventListener("keydown", (event) => {
         if (!(event.ctrlKey && event.key == "Enter")) return;
-        this.dispatchStartQueryEvent(queryId, button, queryInput);
+          new CustomEvent<HistoryEvent>(history.APPEND_HISTORY_EVENT, {
+              detail: {
+                message: queryInput.value,
+                alignment: "left"
+              }
+          });
       });
     });
-  },
-
-  dispatchStartQueryEvent(
-    queryId: string,
-    button: HTMLButtonElement,
-    queryInput: HTMLInputElement,
-  ) {
-    const appendHistoryEvent = new StartQueryEvent({
-      reason: EventReason.StartQueryChain,
-      id: queryId,
-      self: button,
-      data: {
-        submitBtn: button,
-        inputQuery: queryInput,
-      },
-    });
-    document.dispatchEvent(appendHistoryEvent);
-  },
+  }
 };

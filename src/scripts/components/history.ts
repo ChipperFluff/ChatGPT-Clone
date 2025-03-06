@@ -1,41 +1,27 @@
-import {
-  AppendHistoryEventName,
-  AppendHistoryEventData,
-} from "../events/event-typing";
-import { HistoryItem } from "../types/history";
+import { HistoryEvent } from "../types/history";
 
 export default {
+  APPEND_HISTORY_EVENT: "append-history",
+
   init() {
-    const conversationHistory = document.querySelectorAll<HTMLDivElement>(
+    const components = document.querySelectorAll<HTMLDivElement>(
       ".conversation-history",
     );
 
-    conversationHistory.forEach((history) => {
-      document?.addEventListener(
-        AppendHistoryEventName,
-        (event: Event) => {
-          if (!(event instanceof CustomEvent && event.detail)) {
-            return;
-          }
+    components.forEach((component) => {
+      document.addEventListener(this.APPEND_HISTORY_EVENT, ((
+        event: CustomEvent<HistoryEvent>,
+      ) => {
+        const item = document.createElement("div");
+        item.className = event.detail.alignment;
 
-          const details = event.detail as AppendHistoryEventData;
-          const item = this.createHistoryItem(details);
-          history.append(item);
-        },
-      );
+        const itemContent = document.createElement("div");
+        itemContent.classList.add("conversation-history-item");
+        itemContent.innerText = event.detail.message;
+
+        item.append(itemContent);
+        component.append(item);
+      }) as EventListener);
     });
-  },
-
-  createHistoryItem(historyItem: HistoryItem): HTMLDivElement {
-    const item = document.createElement("div");
-    item.className = historyItem.side;
-
-    const itemContent = document.createElement("div");
-    itemContent.classList.add("conversation-history-item");
-    itemContent.classList.add(historyItem.status);
-    itemContent.innerText = historyItem.content;
-
-    item.append(itemContent);
-    return item;
   },
 };
