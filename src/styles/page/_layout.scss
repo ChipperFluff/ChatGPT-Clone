@@ -1,4 +1,4 @@
-@use "./utilities/variables";
+@use "../utilities/variables";
 
 .navigation {
   position: static;
@@ -17,6 +17,7 @@
   background: inherit;
 }
 
-.hidden {
-  display: none;
+.footer p {
+  text-align: center;
+  padding-inline: 8rem;
 }

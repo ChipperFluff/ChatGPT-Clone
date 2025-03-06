@@ -1,16 +1,14 @@
-import { KI_REQUEST_EVENT } from "../main";
 import { HistoryEvent } from "../types/history";
-import { KiRequest } from "../types/main";
 import history from "./history";
 
 export default {
   init() {
     const components =
-      document.querySelectorAll<HTMLFormElement>(".content-query");
+      document.querySelectorAll<HTMLFormElement>(".query");
 
     components.forEach((component) => {
-      const submitBtn = component.querySelector<HTMLInputElement>(
-        ".content-query-control-submit-btn",
+      const submitBtn = component.querySelector<HTMLButtonElement>(
+        ".query-control-submit-btn",
       );
       const queryInput =
         component.querySelector<HTMLTextAreaElement>("textarea");
@@ -21,35 +19,47 @@ export default {
 
       component?.addEventListener("submit", (event) => {
         event.preventDefault();
-        this.sendOutQuery(queryInput)
+        this.sendOutQuery(queryInput, submitBtn, queryInput);
       });
 
       queryInput?.addEventListener("keydown", (event) => {
         if (!(event.ctrlKey && event.key == "Enter")) return;
-          this.sendOutQuery(queryInput)
+        this.sendOutQuery(queryInput, submitBtn, queryInput);
       });
     });
   },
 
-  sendOutQuery(textarea: HTMLTextAreaElement) {
+  async sendOutQuery(
+    textarea: HTMLTextAreaElement,
+    submitBtn: HTMLButtonElement,
+    queryInput: HTMLTextAreaElement,
+  ) {
     const query = textarea.value;
-    textarea.value = ''
+    textarea.value = "";
+    submitBtn.disabled = true;
+    queryInput.disabled = true;
 
     document.dispatchEvent(
       new CustomEvent<HistoryEvent>(history.APPEND_HISTORY_EVENT, {
-          detail: {
-            message: query,
-            alignment: "right"
-          }
+        detail: {
+          message: query,
+          alignment: "right",
+        },
       }),
     );
-    
+
+    await new Promise((r) => setTimeout(r, 2000));
+
     document.dispatchEvent(
-      new CustomEvent<KiRequest>(KI_REQUEST_EVENT, {
-          detail: {
-            request: query,
-          }
+      new CustomEvent<HistoryEvent>(history.APPEND_HISTORY_EVENT, {
+        detail: {
+          message: `#theRealChatGPT #totalyNotJustAConstStr just ctrl+c and ctrl+v to answer: ${query}`,
+          alignment: "left",
+        },
       }),
     );
-  }
+
+    submitBtn.disabled = false;
+    queryInput.disabled = false;
+  },
 };

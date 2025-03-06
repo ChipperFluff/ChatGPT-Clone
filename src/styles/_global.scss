@@ -1,0 +1,19 @@
+@use "./utilities/variables";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  
+    background: variables.$border-dark;
+    color: variables.$primary-light;
+  }
+  
+  body {
+    height: 100vh;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  

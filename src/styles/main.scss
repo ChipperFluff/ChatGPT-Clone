@@ -1,15 +1,6 @@
+@use "./global";
 @use "./utilities/variables";
-@use "./layout";
-@use "./content";
-
-* {
-  margin: 0;
-  padding: 0;
-
-  background: variables.$border-dark;
-  color: variables.$primary-light;
-}
-
-body {
-  height: 100vh;
-}
+@use "./page/content";
+@use "./page/layout";
+@use "./components/history";
+@use "./components/_query";

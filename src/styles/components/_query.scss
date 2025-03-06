@@ -1,0 +1,91 @@
+@use "../utilities/variables";
+
+.query {
+  display: flex;
+  flex-direction: column;
+
+  width: 95%;
+  padding: 0.41rem;
+
+  border-radius: 10px;
+  background: variables.$warm-grey-base;
+
+  &-input {
+    width: 100%;
+    resize: none;
+    background: inherit;
+    border: none;
+  }
+
+  &-input:focus {
+    outline: none;
+    border: none;
+  }
+
+  &-input {
+    color: variables.$canonical-aubergine-10;
+  }
+
+  &-input:disabled {
+    color: variables.$canonical-aubergine-25;
+  }
+
+  &-control {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    border-radius: 15px;
+    background: inherit;
+
+    &-left {
+      background: inherit;
+      display: flex;
+      gap: 1rem;
+    }
+
+    &-right {
+      background: inherit;
+    }
+
+    button {
+      background: inherit;
+      border: 2px solid variables.$button-primary;
+      color: variables.$button-secondary;
+      width: auto;
+      height: 30px;
+      border-radius: 25px;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      transition: 200ms;
+    }
+
+    button:not(:disabled):hover {
+      background: variables.$button-primary-hover;
+      border-color: variables.$button-primary-hover;
+      color: variables.$button-secondary-hover;
+    }
+
+    button:not(:disabled):active {
+      border-color: variables.$border-dark;
+    }
+
+    button:disabled {
+      background: variables.$warm-grey-90;
+      border: 1.5px solid variables.$orange-80;
+      color: variables.$mid-aubergine-90;
+      font-weight: 100;
+      transition: 200ms;
+    }
+
+    // left side
+    &-upload-btn {
+      text-align: center;
+      width: 30px !important;
+      font-size: 1.8rem;
+    }
+  }
+}
