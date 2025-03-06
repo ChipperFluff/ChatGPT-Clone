@@ -3,8 +3,7 @@ import history from "./history";
 
 export default {
   init() {
-    const components =
-      document.querySelectorAll<HTMLFormElement>(".query");
+    const components = document.querySelectorAll<HTMLFormElement>(".query");
 
     components.forEach((component) => {
       const submitBtn = component.querySelector<HTMLButtonElement>(
@@ -27,14 +26,14 @@ export default {
         this.sendOutQuery(queryInput, submitBtn, queryInput);
       });
 
-      queryInput.addEventListener('input', () => {
+      queryInput.addEventListener("input", () => {
         if (!queryInput.value.length) {
-          submitBtn.classList.add('hidden')
-          return
+          submitBtn.classList.add("hidden");
+          return;
         }
 
-        submitBtn.classList.remove('hidden')
-      })
+        submitBtn.classList.remove("hidden");
+      });
     });
   },
 
@@ -44,14 +43,14 @@ export default {
     queryInput: HTMLTextAreaElement,
   ) {
     const query = textarea.value;
-    if (!query.length) { 
-      return
+    if (!query.length) {
+      return;
     }
 
     textarea.value = "";
     submitBtn.disabled = true;
     queryInput.disabled = true;
-    submitBtn.classList.add('hidden')
+    submitBtn.classList.add("hidden");
 
     document.dispatchEvent(
       new CustomEvent<HistoryEvent>(history.APPEND_HISTORY_EVENT, {
