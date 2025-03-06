@@ -1,4 +1,6 @@
+import { KI_REQUEST_EVENT } from "../main";
 import { HistoryEvent } from "../types/history";
+import { KiRequest } from "../types/main";
 import history from "./history";
 
 export default {
@@ -19,25 +21,35 @@ export default {
 
       component?.addEventListener("submit", (event) => {
         event.preventDefault();
-        document.dispatchEvent(
-          new CustomEvent<HistoryEvent>(history.APPEND_HISTORY_EVENT, {
-              detail: {
-                message: queryInput.value,
-                alignment: "left"
-              }
-          }),
-        );
+        this.sendOutQuery(queryInput)
       });
 
       queryInput?.addEventListener("keydown", (event) => {
         if (!(event.ctrlKey && event.key == "Enter")) return;
-          new CustomEvent<HistoryEvent>(history.APPEND_HISTORY_EVENT, {
-              detail: {
-                message: queryInput.value,
-                alignment: "left"
-              }
-          });
+          this.sendOutQuery(queryInput)
       });
     });
+  },
+
+  sendOutQuery(textarea: HTMLTextAreaElement) {
+    const query = textarea.value;
+    textarea.value = ''
+
+    document.dispatchEvent(
+      new CustomEvent<HistoryEvent>(history.APPEND_HISTORY_EVENT, {
+          detail: {
+            message: query,
+            alignment: "right"
+          }
+      }),
+    );
+    
+    document.dispatchEvent(
+      new CustomEvent<KiRequest>(KI_REQUEST_EVENT, {
+          detail: {
+            request: query,
+          }
+      }),
+    );
   }
 };
